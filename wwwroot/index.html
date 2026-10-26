@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حجوزاتي | حجز الفنادق</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Tahoma, Arial, sans-serif;
+            background: #f4f6f9;
+            color: #243247;
+        }
+
+        header {
+            background: #12304a;
+            color: white;
+            padding: 24px 8%;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        header p {
+            margin-bottom: 0;
+            color: #d9e5ef;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .search {
+            background: white;
+            padding: 24px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px #0000000d;
+            margin-bottom: 28px;
+        }
+
+        .search h2 {
+            margin-top: 0;
+        }
+
+        .fields {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #d5dce5;
+            font-size: 15px;
+        }
+
+        button {
+            background: #147d78;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .hotels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+
+        .hotel {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px #0000000d;
+        }
+
+        .hotel img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+        }
+
+        .details {
+            padding: 18px;
+        }
+
+        .stars {
+            color: #e5a000;
+        }
+
+        .rating {
+            color: #147d78;
+            font-weight: bold;
+        }
+
+        .price {
+            font-size: 23px;
+            font-weight: bold;
+            color: #12304a;
+        }
+
+        .muted {
+            color: #68778a;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #68778a;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🏨 حجوزاتي</h1>
+    <p>اكتشف الفنادق المناسبة لك واحجز إقامتك بكل سهولة</p>
+</header>
+
+<main class="container">
+    <section class="search">
+        <h2>ابحث عن فندقك</h2>
+
+        <div class="fields">
+            <div>
+                <label for="city">المدينة</label>
+                <select id="city">
+                    <option value="all">كل المدن</option>
+                    <option value="مكة المكرمة">مكة المكرمة</option>
+                    <option value="المدينة المنورة">المدينة المنورة</option>
+                    <option value="الرياض">الرياض</option>
+                    <option value="جدة">جدة</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="checkin">تاريخ الوصول</label>
+                <input type="date" id="checkin">
+            </div>
+
+            <div>
+                <label for="checkout">تاريخ المغادرة</label>
+                <input type="date" id="checkout">
+            </div>
+
+            <div>
+                <label for="guests">عدد النزلاء</label>
+                <select id="guests">
+                    <option>1</option>
+                    <option selected>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+        </div>
+
+        <button onclick="searchHotels()">ابحث عن الفنادق</button>
+        <p id="message" class="muted"></p>
+    </section>
+
+    <h2>فنادق مقترحة</h2>
+
+    <section class="hotels" id="hotels">
+        <article class="hotel" data-city="مكة المكرمة">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"
+                 alt="صورة فندق">
+            <div class="details">
+                <h3>فندق الصفوة التجريبي</h3>
+                <p>📍 مكة المكرمة</p>
+                <p class="stars">★★★★★ <span class="muted">5 نجوم</span></p>
+                <p class="rating">التقييم: 4.8 / 5</p>
+                <p>🧼 النظافة: 4.9 / 5</p>
+                <p>📍 تقييم الموقع: 4.8 / 5</p>
+                <p class="price">450 ر.س <span class="muted">/ الليلة</span></p>
+                <button onclick="bookHotel('فندق الصفوة التجريبي', 450)">احجز الآن</button>
+            </div>
+        </article>
+
+        <article class="hotel" data-city="المدينة المنورة">
+            <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=800&q=80"
+                 alt="صورة فندق">
+            <div class="details">
+                <h3>فندق الواحة التجريبي</h3>
+                <p>📍 المدينة المنورة</p>
+                <p class="stars">★★★★☆ <span class="muted">4 نجوم</span></p>
+                <p class="rating">التقييم: 4.5 / 5</p>
+                <p>🧼 النظافة: 4.6 / 5</p>
+                <p>📍 تقييم الموقع: 4.4 / 5</p>
+                <p class="price">280 ر.س <span class="muted">/ الليلة</span></p>
+                <button onclick="bookHotel('فندق الواحة التجريبي', 280)">احجز الآن</button>
+            </div>
+        </article>
+
+        <article class="hotel" data-city="الرياض">
+            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80"
+                 alt="صورة فندق">
+            <div class="details">
+                <h3>فندق النخيل التجريبي</h3>
+                <p>📍 الرياض</p>
+                <p class="stars">★★★☆☆ <span class="muted">3 نجوم</span></p>
+                <p class="rating">التقييم: 4.1 / 5</p>
+                <p>🧼 النظافة: 4.2 / 5</p>
+                <p>📍 تقييم الموقع: 4.0 / 5</p>
+                <p class="price">180 ر.س <span class="muted">/ الليلة</span></p>
+                <button onclick="bookHotel('فندق النخيل التجريبي', 180)">احجز الآن</button>
+            </div>
+        </article>
+    </section>
+</main>
+
+<footer>
+    مشروع تعليمي تجريبي لحجز الفنادق
+</footer>
+
+<script>
+    function searchHotels() {
+        const city = document.getElementById("city").value;
+        const checkin = document.getElementById("checkin").value;
+        const checkout = document.getElementById("checkout").value;
+        const message = document.getElementById("message");
+
+        if (checkin && checkout && checkout <= checkin) {
+            message.textContent = "تاريخ المغادرة يجب أن يكون بعد تاريخ الوصول.";
+            return;
+        }
+
+        let count = 0;
+
+        document.querySelectorAll(".hotel").forEach(hotel => {
+            const show = city === "all" || hotel.dataset.city === city;
+            hotel.style.display = show ? "" : "none";
+            if (show) count++;
+        });
+
+        message.textContent = "عدد الفنادق المعروضة: " + count;
+    }
+
+    function bookHotel(name, price) {
+        const checkin = document.getElementById("checkin").value;
+        const checkout = document.getElementById("checkout").value;
+
+        if (!checkin || !checkout || checkout <= checkin) {
+            alert("اختر تاريخ وصول ومغادرة صحيحًا أولًا.");
+            return;
+        }
+
+        const nights = Math.round(
+            (new Date(checkout + "T12:00:00") -
+             new Date(checkin + "T12:00:00")) / 86400000
+        );
+
+        alert(
+            "ملخص الحجز التجريبي\n" +
+            "الفندق: " + name + "\n" +
+            "عدد الليالي: " + nights + "\n" +
+            "الإجمالي: " + (price * nights) + " ريال"
+        );
+    }
+</script>
+
+</body>
+</html>
